@@ -7,12 +7,12 @@ with st.chat_message("assistant"):
     st.markdown("Hello, I have a square head. Let's play rock paper scissors.")
 with st.chat_message("user"):
     user_choice = st.chat_input("Type your choice, you may use the whole word or only the letters r, p, s.")
-allowed_choices = ["r", "p", "s"]
-if user_choice:
-    user_choice = user_choice[0].lower()
+allowed_choices = ["r", "p", "s", "rock", "paper", "scissors"]
 
 if user_choice in allowed_choices:
-    assistant_choice = random.choice(allowed_choices)
+    allowed_assistant_choices = ["r", "p", "s"]
+    assistant_choice = random.choice(allowed_assistant_choices)
+    user_choice = user_choice[0].lower()
     if assistant_choice == user_choice:   
         with st.chat_message("assistant"):
             st.markdown(f"It's a draw, I chose {assistant_choice} too. Make a new choice to play again.")
