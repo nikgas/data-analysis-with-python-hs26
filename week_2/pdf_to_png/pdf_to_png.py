@@ -32,7 +32,7 @@ class MyHandler(FileSystemEventHandler):
                 if pdf.suffix.lower() == ".pdf":
                     pdf_to_png(pdf)
 
-folder = Path("C:/Users/floba/OneDrive - Universität Zürich UZH/HS26/data_analysis_with_python/data-analysis-with-python-hs26/week_2/pdf_folder")
+folder = Path("C:/Users/floba/OneDrive - Universität Zürich UZH/HS26/data_analysis_with_python/data-analysis-with-python-hs26/week_2/pdf_to_png/pdf_folder")
 
 handler = MyHandler()
 observer = Observer()
