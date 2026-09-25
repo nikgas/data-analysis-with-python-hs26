@@ -48,8 +48,16 @@ with tab1:
 
 
 with tab2:
-    st.title("Currency converter")
 
-    tickers = yf.Ticker("EURCHF=X CHFEUR=X")
-    yf.download(tickers, start = 2026-01-01, interval = "1d")
-    st.text(f"Today the exchange rate is {}")
+    import numpy as np
+    import pandas as pd
+    import matplotlib.pyplot as plt
+    import yfinance as yf 
+
+    exchange_rates = yf.download(["EURCHF=X", "CHFEUR=X"], start = "2026-01-01", interval = "1d")
+
+    st.title("Currency converter")
+    money_in_CHF = st.number_input("Enter your money in CHF")
+
+    money_in_EUR = money_in_CHF * exchange_rates["Close", "CHFEUR=X"].iloc[-1]
+    st.write(f"{money_in_CHF} CHF is {money_in_EUR} EUR on {exchange_rates.index[-1]}")
