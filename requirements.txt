@@ -1,0 +1,4 @@
+streamlit
+yfinance
+numpy
+pandas
