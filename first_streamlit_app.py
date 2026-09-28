@@ -1,6 +1,8 @@
 import streamlit as st
 import random
 import yfinance as yf
+import numpy as np
+import pandas as pd
 
 st.title("Niklas's first app")
 
@@ -56,8 +58,28 @@ with tab2:
 
     exchange_rates = yf.download(["EURCHF=X", "CHFEUR=X"], start = "2026-01-01", interval = "1d")
 
-    st.title("Currency converter")
-    money_in_CHF = st.number_input("Enter your money in CHF")
+    st.header("Currency converter")
 
-    money_in_EUR = money_in_CHF * exchange_rates["Close", "CHFEUR=X"].iloc[-1]
-    st.write(f"{money_in_CHF} CHF is {money_in_EUR} EUR on {exchange_rates.index[-1]}")
+    col1, col2 = st.columns(2)
+
+    with col1:
+        amount = st.number_input("Enter amount:", step = 1.00)
+    
+    with col2:
+        selected_currency = st.selectbox("Select currency:", {"EUR", "CHF"})
+
+    if selected_currency == "CHF":
+        money_in_EUR = amount * exchange_rates["Close", "CHFEUR=X"].iloc[-1]
+        st.write(f"{amount} CHF is {round(money_in_EUR, 2)} EUR on {exchange_rates.index[-1].date()}")
+    elif selected_currency == "EUR": 
+        money_in_CHF = amount * exchange_rates["Close", "EURCHF=X"].iloc[-1]
+        st.write(f"{amount} EUR is {round(money_in_CHF, 2)} CHF on {exchange_rates.index[-1].date()}")
+
+    st.divider()
+
+    st.write("""
+    #### Future ideas:
+    - st.date_input()
+    - st.metric()
+    - chart
+    """)
