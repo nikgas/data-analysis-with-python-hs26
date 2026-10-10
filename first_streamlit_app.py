@@ -6,7 +6,7 @@ import pandas as pd
 
 st.title("Niklas's first app")
 
-tab1, tab2 = st.tabs(["Rock, Paper, Scissors Game", "Currency Converter"])
+tab1, tab2, tab3 = st.tabs(["Rock, Paper, Scissors Game", "Currency Converter", "Disney+ Data Explorer"])
 
 with tab1:
 
@@ -83,3 +83,23 @@ with tab2:
     - st.metric()
     - chart
     """)
+
+
+
+with tab3:
+
+    st.header("Disney+ Data Explorer")
+    st.markdown("Explore the Disney+ catalogue and filter movies and series by content type.")
+
+    # load dataset
+    df_disney = pd.read_csv("week_4/disney_plus_shows.csv")
+
+    # select content types
+    selected_types = st.multiselect("Select content type:", options=df_disney["type"].dropna().unique(), default=df_disney["type"].dropna().unique().tolist())
+
+    # filter dataset
+    df_filtered = df_disney.loc[df_disney["type"].isin(selected_types)]
+
+    # display results
+    st.markdown(f"**Number of titles:** {len(df_filtered)}")
+    st.dataframe(df_filtered, use_container_width=True)

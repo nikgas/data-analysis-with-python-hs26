@@ -1,0 +1,1 @@
+Use pathlib and inspect paths before reading.
